@@ -3,6 +3,7 @@ import NavLinks from "./NavLinks";
 import { Navs } from "@/types/nav.type";
 import { getNavs } from "@/api/nav.api";
 import MobileMenu from "./MobileMenu";
+import Marquee from "./Marquee";
 
 const Header = async () => {
   const date = new Date().toLocaleDateString("bn-BD", {
@@ -12,7 +13,7 @@ const Header = async () => {
   const navs: Navs[] = await getNavs();
 
   return (
-    <header className="relative  py-3 md:py-4">
+    <header className="relative  pt-3 md:pt-4">
       <div className="flex items-center justify-between mx-auto w-10/12 max-w-7xl">
         {/* Logo */}
         <div className="flex items-center gap-2">
@@ -53,6 +54,7 @@ const Header = async () => {
 
       {/* Desktop Navigation */}
       <NavLinks />
+      <Marquee></Marquee>
     </header>
   );
 };

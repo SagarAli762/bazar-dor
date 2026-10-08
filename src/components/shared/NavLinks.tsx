@@ -8,7 +8,7 @@ const NavLinks = async () => {
 
   return (
     <nav className="hidden md:block border-y border-gray-200 mt-4">
-      <div className="flex items-center justify-start gap-6 mx-auto w-10/12  overflow-x-auto py-3">
+      <div className="flex items-center justify-start gap-6 mx-auto w-10/12 max-w-7xl overflow-x-auto py-3">
         {navs.map((n, i) => {
           return (
             <Link

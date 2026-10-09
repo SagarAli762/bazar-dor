@@ -14,7 +14,7 @@ const Marquee = async () => {
         {products.map((product) => (
           <span
             key={product.id}
-            className="flex items-center px-4  text-[14px] md:text-[20px] border-r border-gray-400"
+            className="flex items-center px-4 py-2 text-[14px] md:text-[20px] border-r border-gray-400"
           >
             <span className="pr-1">{product.categoryIcon}</span>
             <span>{product.nameBn}</span>

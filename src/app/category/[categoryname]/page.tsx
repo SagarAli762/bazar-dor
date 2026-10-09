@@ -15,7 +15,6 @@ const CategoryPage = async ({ params }: CategoryPageProps) => {
   );
   const categories: IProduct[] = await res.json();
   console.log(categories);
-  //const category = categories.find((category) => category);
 
   return (
     <section className="bg-[#F0F5F0]">

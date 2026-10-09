@@ -24,10 +24,14 @@ const Marquee = async () => {
               {product.change.dir === "up" ? (
                 <span className="flex items-center">
                   <Image
-                    className=" mx-2"
                     src="/images/up.png"
                     height={14}
                     width={14}
+                    className=" mx-2"
+                    style={{
+                      width: "14px",
+                      height: "14px",
+                    }}
                     alt="up-png"
                   ></Image>
                   {product.change.pct}%
@@ -35,10 +39,14 @@ const Marquee = async () => {
               ) : (
                 <span className="flex items-center">
                   <Image
-                    className=" mx-2"
                     src="/images/down.png"
                     height={14}
                     width={14}
+                    className=" mx-2"
+                    style={{
+                      width: "14px",
+                      height: "14px",
+                    }}
                     alt="up-png"
                   ></Image>
                   {product.change.pct}%

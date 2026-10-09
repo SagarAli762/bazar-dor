@@ -13,7 +13,7 @@ const NavLinks = async () => {
           return (
             <Link
               key={i}
-              href={n.slug}
+              href={`/category/${n.slug}`}
               className="flex  items-center gap-2  text-sm font-medium  transition hover:text-primary"
             >
               <span className="text-[12px] md:text-[17px]">{n.icon}</span>

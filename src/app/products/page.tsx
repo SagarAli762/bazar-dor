@@ -5,18 +5,25 @@ import Image from "next/image";
 
 const ProductsPage = async () => {
   const products: IProduct[] = await getAllProducts();
+  {
+    /**up products */
+  }
   const filterdUpProducts = products.filter(
     (product) => product.change.dir === "up",
   );
   const upProducts = filterdUpProducts.sort(
     (a, b) => b.change.pct - a.change.pct,
   );
+  {
+    /**down products */
+  }
   const filterdDownProducts = products.filter(
-    (product) => product.change.dir === "up",
+    (product) => product.change.dir === "down",
   );
   const downProducts = filterdDownProducts.sort(
-    (a, b) => b.change.pct - a.change.pct,
+    (a, b) => a.change.pct - b.change.pct,
   );
+  console.log("down", downProducts);
   return (
     <section className="mx-auto w-10/12 max-w-7xl pt-8 pb-8 md:pb-20">
       {/**up products */}
@@ -26,6 +33,7 @@ const ProductsPage = async () => {
           src="/images/up.png"
           width={16}
           height={2}
+          style={{ width: "auto", height: "auto" }}
           alt="price-up-icon"
         ></Image>
         <h2 className="text-[20px] md:text-[28x] font-bold">আজ দাম বেড়েছে</h2>
@@ -44,6 +52,7 @@ const ProductsPage = async () => {
           src="/images/down.png"
           width={16}
           height={2}
+          style={{ width: "auto", height: "auto" }}
           alt="price-up-icon"
         ></Image>
         <h2 className="text-[20px] md:text-[28x] font-bold">আজ দাম কমেছে</h2>
@@ -62,7 +71,6 @@ const ProductsPage = async () => {
           মোট ৩৩টি পণ্য দেখানো হচ্ছে
         </p>
       </div>
-
       <div className="mt-2 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:rid-cols-4 gap-4 sm:gap-8">
         {products.map((product: IProduct) => (
           <ProductsCard key={product.id} product={product} />

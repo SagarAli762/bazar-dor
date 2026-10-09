@@ -116,6 +116,7 @@ const Hero = () => {
             src="/images/bazar-hero.png"
             width={315}
             height={265}
+            style={{ width: 315, height: 265 }}
             alt="hero png"
           ></Image>
         </div>

@@ -156,15 +156,17 @@ const ProductsCard = ({ product }: ProductsCardProps) => {
                 src="/images/up.png"
                 width={13}
                 height={12}
-                alt="price up icon"
-              ></Image>
+                alt="Price up icon"
+                style={{ width: "auto", height: "auto" }}
+              />
             ) : (
               <Image
                 src="/images/down.png"
                 width={13}
                 height={12}
-                alt="price up icon"
-              ></Image>
+                alt="Price down icon"
+                style={{ width: "auto", height: "auto" }}
+              />
             )}
             <span className="text-[12px] md:text-[16px] ps-1">
               {product.change.pct.toFixed(1)}%

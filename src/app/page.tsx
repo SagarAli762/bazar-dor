@@ -1,11 +1,11 @@
 import Hero from "@/components/homepage/Hero";
-import Products from "@/components/homepage/Products";
+import ProductsPage from "./products/page";
 
 export default function Home() {
   return (
     <div className="bg-[#F0F5F0]">
       <Hero></Hero>
-      <Products></Products>
+      <ProductsPage></ProductsPage>
     </div>
   );
 }

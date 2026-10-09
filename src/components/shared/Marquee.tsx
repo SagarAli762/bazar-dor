@@ -7,7 +7,6 @@ import MarqueeText from "react-marquee-text";
 
 const Marquee = async () => {
   const products: IProduct[] = await getAllProducts();
-  console.log(products);
   return (
     <div>
       <MarqueeText direction="right" duration={20}>

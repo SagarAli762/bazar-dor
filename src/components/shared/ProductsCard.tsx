@@ -1,5 +1,6 @@
 import { IProduct } from "@/types/allProducts.type";
 import Image from "next/image";
+import Link from "next/link";
 
 interface ProductsCardProps {
   product: IProduct;
@@ -9,8 +10,10 @@ const ProductsCard = ({ product }: ProductsCardProps) => {
   const isUp = product.change.dir === "up";
 
   return (
-    <div
-      className="
+    <Link href={`/products/${product.id}`}>
+      {" "}
+      <div
+        className="
         w-full
         rounded-xl
         border
@@ -26,12 +29,12 @@ const ProductsCard = ({ product }: ProductsCardProps) => {
         sm:p-3.5
         md:p-4
       "
-    >
-      {/* Product Info */}
-      <div className="flex items-center gap-2.5 sm:gap-3 md:gap-3.5">
-        {/* Product Image */}
-        <div
-          className="
+      >
+        {/* Product Info */}
+        <div className="flex items-center gap-2.5 sm:gap-3 md:gap-3.5">
+          {/* Product Image */}
+          <div
+            className="
             flex
             h-10
             w-10
@@ -50,14 +53,14 @@ const ProductsCard = ({ product }: ProductsCardProps) => {
             md:w-12
             md:text-2xl
           "
-        >
-          {product.image}
-        </div>
+          >
+            {product.image}
+          </div>
 
-        {/* Product Name */}
-        <div className="min-w-0 flex-1">
-          <h3
-            className="
+          {/* Product Name */}
+          <div className="min-w-0 flex-1">
+            <h3
+              className="
               truncate
               text-xs
               font-bold
@@ -66,12 +69,12 @@ const ProductsCard = ({ product }: ProductsCardProps) => {
               sm:text-sm
               md:text-base
             "
-          >
-            {product.nameBn}
-          </h3>
+            >
+              {product.nameBn}
+            </h3>
 
-          <p
-            className="
+            <p
+              className="
               mt-0.5
               text-[10px]
               text-gray-500
@@ -79,15 +82,15 @@ const ProductsCard = ({ product }: ProductsCardProps) => {
               sm:text-[11px]
               md:text-xs
             "
-          >
-            প্রতি {product.unit}
-          </p>
+            >
+              প্রতি {product.unit}
+            </p>
+          </div>
         </div>
-      </div>
 
-      {/* Price + Change */}
-      <div
-        className="
+        {/* Price + Change */}
+        <div
+          className="
           mt-3
           flex
           items-end
@@ -96,23 +99,23 @@ const ProductsCard = ({ product }: ProductsCardProps) => {
           sm:mt-3.5
           md:mt-4
         "
-      >
-        {/* Today's Price */}
-        <div>
-          <p
-            className="
+        >
+          {/* Today's Price */}
+          <div>
+            <p
+              className="
               text-[9px]
               text-gray-500
 
               sm:text-[10px]
               md:text-[11px]
             "
-          >
-            আজকের দাম
-          </p>
+            >
+              আজকের দাম
+            </p>
 
-          <p
-            className="
+            <p
+              className="
               mt-0.5
               text-sm
               font-bold
@@ -121,14 +124,14 @@ const ProductsCard = ({ product }: ProductsCardProps) => {
               sm:text-base
               md:text-lg
             "
-          >
-            ৳{product.today}
-          </p>
-        </div>
+            >
+              ৳{product.today}
+            </p>
+          </div>
 
-        {/* Price Change */}
-        <div
-          className={`
+          {/* Price Change */}
+          <div
+            className={`
             flex
             items-center
             gap-0.5
@@ -147,28 +150,29 @@ const ProductsCard = ({ product }: ProductsCardProps) => {
 
             ${isUp ? "bg-red-50 text-red-500" : "bg-green-50 text-green-600"}
           `}
-        >
-          {isUp ? (
-            <Image
-              src="/images/up.png"
-              width={13}
-              height={12}
-              alt="price up icon"
-            ></Image>
-          ) : (
-            <Image
-              src="/images/down.png"
-              width={13}
-              height={12}
-              alt="price up icon"
-            ></Image>
-          )}
-          <span className="text-[12px] md:text-[16px] ps-1">
-            {product.change.pct.toFixed(1)}%
-          </span>
+          >
+            {isUp ? (
+              <Image
+                src="/images/up.png"
+                width={13}
+                height={12}
+                alt="price up icon"
+              ></Image>
+            ) : (
+              <Image
+                src="/images/down.png"
+                width={13}
+                height={12}
+                alt="price up icon"
+              ></Image>
+            )}
+            <span className="text-[12px] md:text-[16px] ps-1">
+              {product.change.pct.toFixed(1)}%
+            </span>
+          </div>
         </div>
       </div>
-    </div>
+    </Link>
   );
 };
 

@@ -1,10 +1,9 @@
 import { getAllProducts } from "@/api/allProducts.api";
+import ProductsCard from "@/components/shared/ProductsCard";
 import { IProduct } from "@/types/allProducts.type";
 import Image from "next/image";
-import React from "react";
-import ProductsCard from "../shared/ProductsCard";
 
-const Products = async () => {
+const ProductsPage = async () => {
   const products: IProduct[] = await getAllProducts();
   const filterdUpProducts = products.filter(
     (product) => product.change.dir === "up",
@@ -19,7 +18,7 @@ const Products = async () => {
     (a, b) => b.change.pct - a.change.pct,
   );
   return (
-    <section className="mx-auto w-10/12 max-w-7xl pt-8 pb-8">
+    <section className="mx-auto w-10/12 max-w-7xl pt-8 pb-8 md:pb-20">
       {/**up products */}
       <div className="flex gap-1 sm:gap-2">
         {" "}
@@ -73,4 +72,4 @@ const Products = async () => {
   );
 };
 
-export default Products;
+export default ProductsPage;

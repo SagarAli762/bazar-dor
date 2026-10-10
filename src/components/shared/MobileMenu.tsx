@@ -41,7 +41,7 @@ const MobileMenu = ({ navs }: MobileMenuProps) => {
               {navs.map((nav) => (
                 <Link
                   key={nav.id}
-                  href={nav.slug}
+                  href={`/category/${nav.slug}`}
                   onClick={() => setIsOpen(false)}
                   className="flex items-center gap-2 rounded-lg px-3 py-3 text-sm font-medium text-gray-700 transition hover:bg-gray-100 hover:text-[#05493E]"
                 >

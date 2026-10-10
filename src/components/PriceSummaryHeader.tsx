@@ -1,5 +1,4 @@
 import { IProduct } from "@/types/allProducts.type";
-import React from "react";
 
 const PriceSummaryHeader = ({ product }: { product: IProduct }) => {
   const market: number[] = product.markets.map((market) => market.min);

@@ -1,8 +1,6 @@
 import { getAllProducts } from "@/api/allProducts.api";
 import { IProduct } from "@/types/allProducts.type";
 import Image from "next/image";
-import React from "react";
-import { FaCaretDown, FaCaretUp } from "react-icons/fa";
 import MarqueeText from "react-marquee-text";
 
 const Marquee = async () => {

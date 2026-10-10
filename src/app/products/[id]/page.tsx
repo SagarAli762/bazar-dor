@@ -14,7 +14,6 @@ const ProductDetailPage = async ({ params }: IProductDetailPageProps) => {
     `https://api.abcz.workers.dev/api/bazardor/products/${id}`,
   );
   const product = await res.json();
-  console.log("single product", product);
 
   return (
     <section className="bg-[#F0F5F0]">

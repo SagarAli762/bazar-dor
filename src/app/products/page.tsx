@@ -23,7 +23,6 @@ const ProductsPage = async () => {
   const downProducts = filterdDownProducts.sort(
     (a, b) => a.change.pct - b.change.pct,
   );
-  console.log("down", downProducts);
   return (
     <section className="mx-auto w-10/12 max-w-7xl pt-8 pb-8 md:pb-20">
       {/**up products */}

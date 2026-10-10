@@ -1,7 +1,6 @@
 import { getNavs } from "@/api/nav.api";
 import { Navs } from "@/types/nav.type";
 import Link from "next/link";
-import React from "react";
 
 const NavLinks = async () => {
   const navs: Navs[] = await getNavs();

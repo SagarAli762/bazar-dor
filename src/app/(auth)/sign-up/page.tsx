@@ -1,4 +1,5 @@
 "use client";
+
 import { signIn, signUp } from "@/lib/auth-client";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -9,6 +10,7 @@ import { toast } from "react-toastify";
 
 export default function SignupPage() {
   const router = useRouter();
+
   const handleSignUpWithEmail = async (
     e: React.SubmitEvent<HTMLFormElement>,
   ) => {
@@ -34,7 +36,9 @@ export default function SignupPage() {
       );
       return;
     }
+    const userData = await resData.json();
 
+    console.log(resData.user, "user");
     toast.success("অ্যাকাউন্ট তৈরি সফল হয়েছে!");
     router.push("/");
   };

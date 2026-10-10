@@ -1,6 +1,5 @@
 "use client";
 import { signIn } from "@/lib/auth-client";
-import { signInEmail } from "better-auth/api";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { FaGithub } from "react-icons/fa";

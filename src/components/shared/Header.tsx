@@ -4,8 +4,7 @@ import { Navs } from "@/types/nav.type";
 import { getNavs } from "@/api/nav.api";
 import MobileMenu from "./MobileMenu";
 import Marquee from "./Marquee";
-import Link from "next/link";
-import { IoMdArrowDropdown } from "react-icons/io";
+import NavbarButton from "./NavbarButton";
 
 const Header = async () => {
   const date = new Date().toLocaleDateString("bn-BD", {
@@ -39,35 +38,8 @@ const Header = async () => {
 
         {/* Actions */}
         <div className="flex items-center gap-1 sm:gap-2">
-          {/**dropdown button */}
-          <div className="dropdown dropdown-bottom dropdown-end">
-            <div tabIndex={0} role="button" className="btn m-1">
-              Click <IoMdArrowDropdown />
-            </div>
-            <ul
-              tabIndex={-1}
-              className="dropdown-content menu bg-base-100 rounded-box z-1 w-52 p-2 shadow-sm"
-            >
-              <li>
-                <a>Item 1</a>
-              </li>
-              <li>
-                <a>Item 2</a>
-              </li>
-            </ul>
-          </div>
-          {/* Sign In - Desktop */}
-          <Link href="/sign-in">
-            <button className="btn btn-ghost btn-sm hidden md:inline-flex">
-              সাইন ইন
-            </button>
-          </Link>
-          {/* Sign Up - All Devices */}
-          <Link href="/sign-up">
-            <button className="rounded-lg bg-[#05493E] px-3 py-2 text-xs text-white transition hover:bg-[#067c14] sm:px-4 sm:text-sm">
-              সাইন আপ
-            </button>
-          </Link>
+          {/**Nav button */}
+          <NavbarButton></NavbarButton>
           {/* Mobile Menu */}
           <MobileMenu navs={navs} />
         </div>

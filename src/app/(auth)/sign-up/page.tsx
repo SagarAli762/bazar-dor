@@ -1,5 +1,5 @@
 "use client";
-import { signUp } from "@/lib/auth-client";
+import { signIn, signUp } from "@/lib/auth-client";
 import Link from "next/link";
 import { FaGithub } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
@@ -34,7 +34,13 @@ export default function SignupPage() {
 
     toast.success("অ্যাকাউন্ট তৈরি সফল হয়েছে!");
   };
-
+  //signup with google
+  const handleSignUpWithGoogle = async () => {
+    const data = await signIn.social({
+      provider: "google",
+    });
+    console.log("after sign up with google", data);
+  };
   return (
     <main className="flex min-h-screen items-center justify-center bg-[#f0f5f0] px-4 py-8">
       <div className="w-full max-w-[660px]">
@@ -121,7 +127,7 @@ export default function SignupPage() {
           {/* Social Signup */}
           <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
             <button
-              type="button"
+              onClick={handleSignUpWithGoogle}
               className="flex items-center btn btn-outline h-14 min-h-0 gap-2 border-gray-200 bg-white text-[14px] md:text-[21px] text-gray-800"
             >
               <FcGoogle />

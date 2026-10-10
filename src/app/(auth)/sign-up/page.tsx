@@ -41,6 +41,12 @@ export default function SignupPage() {
     });
     console.log("after sign up with google", data);
   };
+  //sign up with github
+  const handleSignUpWithGithub = async () => {
+    await signIn.social({
+      provider: "github",
+    });
+  };
   return (
     <main className="flex min-h-screen items-center justify-center bg-[#f0f5f0] px-4 py-8">
       <div className="w-full max-w-[660px]">
@@ -128,15 +134,19 @@ export default function SignupPage() {
           <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
             <button
               onClick={handleSignUpWithGoogle}
-              className="flex items-center btn btn-outline h-14 min-h-0 gap-2 border-gray-200 bg-white text-[14px] md:text-[21px] text-gray-800"
+              className="flex items-center btn btn-outline h-14 min-h-0 gap-2 border-gray-200 bg-white text-[14px] md:text-[21px] text-gray-800
+              transition-all duration-200 ease-in-out
+  hover:bg-gray-100 hover:border-gray-400 hover:shadow-md hover:-translate-y-0.5  active:scale-95 active:translate-y-0"
             >
               <FcGoogle />
               Google দিয়ে চালিয়ে যান
             </button>
 
             <button
-              type="button"
-              className="flex items-center btn btn-outline h-14 min-h-0 gap-2 border-gray-200 bg-white text-[14px] md:text-[21px] text-gray-800"
+              onClick={handleSignUpWithGithub}
+              className="flex items-center btn btn-outline h-14 min-h-0 gap-2 border-gray-200 bg-white text-[14px] md:text-[21px] text-gray-800
+              transition-all duration-200 ease-in-out
+  hover:bg-gray-100 hover:border-gray-400 hover:shadow-md hover:-translate-y-0.5  active:scale-95 active:translate-y-0"
             >
               <FaGithub className="text-base" />
               GitHub দিয়ে চালিয়ে যান

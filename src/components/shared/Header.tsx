@@ -4,6 +4,7 @@ import { Navs } from "@/types/nav.type";
 import { getNavs } from "@/api/nav.api";
 import MobileMenu from "./MobileMenu";
 import Marquee from "./Marquee";
+import Link from "next/link";
 
 const Header = async () => {
   const date = new Date().toLocaleDateString("bn-BD", {
@@ -38,15 +39,17 @@ const Header = async () => {
         {/* Actions */}
         <div className="flex items-center gap-1 sm:gap-2">
           {/* Sign In - Desktop */}
+
           <button className="btn btn-ghost btn-sm hidden md:inline-flex">
             সাইন ইন
           </button>
 
           {/* Sign Up - All Devices */}
-          <button className="rounded-lg bg-[#05493E] px-3 py-2 text-xs text-white transition hover:bg-[#067c14] sm:px-4 sm:text-sm">
-            সাইন আপ
-          </button>
-
+          <Link href="/sign-up">
+            <button className="rounded-lg bg-[#05493E] px-3 py-2 text-xs text-white transition hover:bg-[#067c14] sm:px-4 sm:text-sm">
+              সাইন আপ
+            </button>
+          </Link>
           {/* Mobile Menu */}
           <MobileMenu navs={navs} />
         </div>

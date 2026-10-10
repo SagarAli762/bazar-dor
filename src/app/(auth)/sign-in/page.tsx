@@ -1,52 +1,44 @@
 "use client";
-import { signIn, signUp } from "@/lib/auth-client";
+import { signIn } from "@/lib/auth-client";
+import { signInEmail } from "better-auth/api";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-
 import { FaGithub } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
 import { toast } from "react-toastify";
 
-export default function SignupPage() {
-  const router = useRouter();
-  const handleSignUpWithEmail = async (
+const SignInPage = () => {
+  const route = useRouter();
+  const handleSignInWithEmail = async (
     e: React.SubmitEvent<HTMLFormElement>,
   ) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
     const data = Object.fromEntries(formData.entries()) as {
-      name: string;
       email: string;
       password: string;
     };
     console.log(data);
-    const { data: resData, error } = await signUp.email({
-      name: data.name,
+    const { data: resData, error } = await signIn.email({
       email: data.email,
       password: data.password,
     });
-    console.log("aftersignup", resData, error);
     if (error) {
-      toast.error(
-        error.message === "User already exists. Use another email."
-          ? "এই ইমেইল দিয়ে ইতিমধ্যে অ্যাকাউন্ট তৈরি করা হয়েছে।"
-          : "অ্যাকাউন্ট তৈরি করা যায়নি। তথ্যগুলো যাচাই করে আবার চেষ্টা করুন।",
-      );
+      toast.error("লগইন ব্যর্থ হয়েছে। ইমেইল ও পাসওয়ার্ড যাচাই করুন।");
       return;
     }
-
-    toast.success("অ্যাকাউন্ট তৈরি সফল হয়েছে!");
-    router.push("/");
+    toast.success("সফলভাবে লগইন হয়েছে!");
+    route.push("/");
   };
-  //signup with google
-  const handleSignUpWithGoogle = async () => {
-    const data = await signIn.social({
+  //sign in with google
+  const handleSignInWithGoogle = async () => {
+    await signIn.social({
       provider: "google",
     });
-    console.log("after sign up with google", data);
   };
-  //sign up with github
-  const handleSignUpWithGithub = async () => {
+
+  //sign in with github
+  const handleSignInWithGithub = async () => {
     await signIn.social({
       provider: "github",
     });
@@ -57,29 +49,16 @@ export default function SignupPage() {
         {/* Header */}
         <div className="mb-6 text-center">
           <h1 className="text-[24px] md:text-[32px] font-bold text-gray-900">
-            অ্যাকাউন্ট তৈরি করুন
+            সাইন ইন
           </h1>
           <p className="mt-1 text-[14px] md:text-[20px] text-gray-500">
-            নিচে আপনার সঠিক তথ্য দিয়ে ফর্মটি পূরণ করুন।
+            বিস্তারিত দাম, বাজার তুলনা ও প্রোফাইল দেখতে অ্যাকাউন্টে ঢুকুন।
           </p>
         </div>
 
         {/* Signup Form */}
         <div className="rounded-xl border border-gray-200 bg-white p-5 shadow-sm sm:p-7">
-          <form className="space-y-4" onSubmit={handleSignUpWithEmail}>
-            <div>
-              <label className="mb-1 block text-[14px] md:text-[21px] font-medium text-gray-700">
-                নাম
-              </label>
-              <input
-                name="name"
-                type="text"
-                placeholder="আপনার সম্পূর্ণ নাম"
-                className="input input-bordered h-10 w-full bg-white text-[14px] md:text-[21px]"
-                required
-              />
-            </div>
-
+          <form className="space-y-4" onSubmit={handleSignInWithEmail}>
             <div>
               <label className="mb-1 block text-[14px] md:text-[21px] font-medium text-gray-700">
                 ইমেইল
@@ -103,29 +82,14 @@ export default function SignupPage() {
                 placeholder="কমপক্ষে ৮ অক্ষরের"
                 className="input input-bordered h-10 w-full bg-white text-[14px] md:text-[21px]"
                 minLength={8}
-                pattern="(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[!@#$%^&amp;*]).{8,}"
-                title="কমপক্ষে ৮ অক্ষর, একটি uppercase, একটি lowercase, একটি number এবং ! @ # $ % ^ &amp; * এর যেকোনো একটি দিতে হবে।"
                 required
               />
             </div>
-
-            <div>
-              <label className="mb-1 block text-[14px] md:text-[21px] font-medium text-gray-700">
-                পাসওয়ার্ড নিশ্চিত করুন
-              </label>
-              <input
-                type="password"
-                placeholder="আবার লিখুন"
-                className="input input-bordered h-10 w-full bg-white text-[14px] md:text-[21px]"
-                required
-              />
-            </div>
-
             <button
               type="submit"
               className="btn text-[14px] md:text-[21px] h-11 min-h-0 w-full border-none bg-green-700 text-white hover:bg-green-800"
             >
-              অ্যাকাউন্ট তৈরি করুন
+              সাইন ইন
             </button>
           </form>
 
@@ -137,7 +101,7 @@ export default function SignupPage() {
           {/* Social Signup */}
           <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
             <button
-              onClick={handleSignUpWithGoogle}
+              onClick={handleSignInWithGoogle}
               className="flex items-center btn btn-outline h-14 min-h-0 gap-2 border-gray-200 bg-white text-[14px] md:text-[21px] text-gray-800 transition-all duration-200 ease-in-out hover:bg-gray-100 hover:border-gray-400 hover:shadow-md hover:-translate-y-0.5  active:scale-95 active:translate-y-0"
             >
               <FcGoogle />
@@ -145,7 +109,7 @@ export default function SignupPage() {
             </button>
 
             <button
-              onClick={handleSignUpWithGithub}
+              onClick={handleSignInWithGithub}
               className="flex items-center btn btn-outline h-14 min-h-0 gap-2 border-gray-200 bg-white text-[14px] md:text-[21px] text-gray-800 transition-all duration-200 ease-in-out hover:bg-gray-100 hover:border-gray-400 hover:shadow-md hover:-translate-y-0.5  active:scale-95 active:translate-y-0"
             >
               <FaGithub className="text-base" />
@@ -155,12 +119,12 @@ export default function SignupPage() {
 
           {/* Login Link */}
           <p className="mt-5 text-center text-[14px] md:text-[20px] text-gray-600">
-            অ্যাকাউন্ট আছে?
+            অ্যাকাউন্ট নেই?
             <Link
-              href="/sign-in"
+              href="/sign-up"
               className="ml-1 font-medium text-green-700 hover:underline"
             >
-              সাইন ইন করুন
+              সাইন আপ করুন
             </Link>
           </p>
         </div>
@@ -177,4 +141,6 @@ export default function SignupPage() {
       </div>
     </main>
   );
-}
+};
+
+export default SignInPage;

@@ -1,7 +1,6 @@
 import MarketPriceTable from "@/components/MarketPriceTable";
 import PriceSummaryHeader from "@/components/PriceSummaryHeader";
 import ProductDetailHeader from "@/components/ProductDetailHeader";
-import React from "react";
 interface IProductDetailPageProps {
   params: Promise<{
     id: number;

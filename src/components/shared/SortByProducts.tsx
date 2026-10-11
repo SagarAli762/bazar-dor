@@ -1,9 +1,7 @@
 "use client";
-
 import { useState } from "react";
 import CategoryProductCard from "./CategoryProductCard";
 import { IProduct } from "@/types/allProducts.type";
-import { FiChevronDown } from "react-icons/fi";
 interface ISortByProductsProps {
   categories: IProduct[];
 }

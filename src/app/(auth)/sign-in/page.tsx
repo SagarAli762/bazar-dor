@@ -1,46 +1,64 @@
 "use client";
 import { signIn } from "@/lib/auth-client";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { redirect, useRouter } from "next/navigation";
 import { FaGithub } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
 import { toast } from "react-toastify";
 
 const SignInPage = () => {
-  const route = useRouter();
+  //sign up with email and password
   const handleSignInWithEmail = async (
     e: React.SubmitEvent<HTMLFormElement>,
   ) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
-    const data = Object.fromEntries(formData.entries()) as {
+    const user = Object.fromEntries(formData.entries()) as {
+      name: string;
       email: string;
       password: string;
     };
-    console.log(data);
-    const { data: resData, error } = await signIn.email({
-      email: data.email,
-      password: data.password,
+    const { data, error } = await signIn.email({
+      ...user,
+      callbackURL: "/",
     });
+    console.log("aftersignup", error);
+
     if (error) {
-      toast.error("লগইন ব্যর্থ হয়েছে। ইমেইল ও পাসওয়ার্ড যাচাই করুন।");
+      toast.error(
+        "লগইন ব্যর্থ হয়েছে। ইমেইল ও পাসওয়ার্ড যাচাই করে আবার চেষ্টা করুন।",
+      );
       return;
     }
-    toast.success("সফলভাবে লগইন হয়েছে!");
-    route.push("/");
+    if (data) {
+      toast.success("সফলভাবে লগইন হয়েছে!");
+      redirect("/");
+    }
   };
-  //sign in with google
-  const handleSignInWithGoogle = async () => {
-    await signIn.social({
-      provider: "google",
-    });
-  };
+  //signup with social
+  const handleSignUpWithSocial = async (provider: "google" | "github") => {
+    try {
+      const result = await signIn.social({
+        provider,
+        callbackURL: "/",
+      });
 
-  //sign in with github
-  const handleSignInWithGithub = async () => {
-    await signIn.social({
-      provider: "github",
-    });
+      console.log("result", result);
+
+      if (result.error) {
+        toast.error(
+          result.error.message || `${provider} দিয়ে সাইন ইন ব্যর্থ হয়েছে`,
+        );
+        return;
+      }
+
+      toast.success(
+        `${provider === "google" ? "Google" : "GitHub"} দিয়ে সাইন ইন শুরু হয়েছে`,
+      );
+    } catch (error) {
+      console.error("Social signup error:", error);
+      toast.error("সাইন ইন করতে সমস্যা হয়েছে। আবার চেষ্টা করুন।");
+    }
   };
   return (
     <main className="flex min-h-screen items-center justify-center bg-[#f0f5f0] px-4 py-8">
@@ -100,7 +118,7 @@ const SignInPage = () => {
           {/* Social Signup */}
           <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
             <button
-              onClick={handleSignInWithGoogle}
+              onClick={() => handleSignUpWithSocial("google")}
               className="flex items-center btn btn-outline h-14 min-h-0 gap-2 border-gray-200 bg-white text-[14px] md:text-[21px] text-gray-800 transition-all duration-200 ease-in-out hover:bg-gray-100 hover:border-gray-400 hover:shadow-md hover:-translate-y-0.5  active:scale-95 active:translate-y-0"
             >
               <FcGoogle />
@@ -108,7 +126,7 @@ const SignInPage = () => {
             </button>
 
             <button
-              onClick={handleSignInWithGithub}
+              onClick={() => handleSignUpWithSocial("github")}
               className="flex items-center btn btn-outline h-14 min-h-0 gap-2 border-gray-200 bg-white text-[14px] md:text-[21px] text-gray-800 transition-all duration-200 ease-in-out hover:bg-gray-100 hover:border-gray-400 hover:shadow-md hover:-translate-y-0.5  active:scale-95 active:translate-y-0"
             >
               <FaGithub className="text-base" />

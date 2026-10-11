@@ -1,7 +1,7 @@
 "use client";
-
 import { authClient } from "@/lib/auth-client";
 import Link from "next/link";
+import { redirect } from "next/navigation";
 import { FaUser } from "react-icons/fa";
 import { HiMiniArrowTurnDownLeft } from "react-icons/hi2";
 
@@ -10,7 +10,11 @@ import { IoMdArrowDropdown } from "react-icons/io";
 const NavbarButton = () => {
   const { data: session } = authClient.useSession();
   const user = session?.user;
-  console.log(user, "user after sign up");
+  console.log(user, "user after sign up...");
+  const handleSignOut = async () => {
+    await authClient.signOut({ callbackURL: "/sign-in" });
+    redirect("/");
+  };
   return (
     <>
       {user ? (
@@ -23,7 +27,7 @@ const NavbarButton = () => {
             tabIndex={-1}
             className="w-[250px] dropdown-content menu bg-base-100 rounded-box z-1 w-52 p-2 shadow-sm"
           >
-            <li className="ps-6 text-gray-300 text-[14px] md:text-[20px] disabled">
+            <li className="ps-6 text-gray-400 text-[14px] md:text-[20px] disabled">
               {user?.name}
             </li>
             <li>
@@ -34,11 +38,12 @@ const NavbarButton = () => {
               </Link>
             </li>
             <li>
-              <Link href="/sign-in">
-                <button className="text-red-600 text-[14px] md:text-[20px] btn btn-ghost btn-sm hidden md:inline-flex">
-                  <HiMiniArrowTurnDownLeft /> সাইন আউট
-                </button>
-              </Link>
+              <button
+                onClick={handleSignOut}
+                className="text-red-600 text-[14px] md:text-[20px] btn btn-ghost btn-sm hidden md:inline-flex"
+              >
+                <HiMiniArrowTurnDownLeft /> সাইন আউট
+              </button>
             </li>
           </ul>
         </div>

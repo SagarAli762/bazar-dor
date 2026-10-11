@@ -1,33 +1,30 @@
 "use client";
-
 import { signIn, signUp } from "@/lib/auth-client";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { redirect } from "next/navigation";
 
 import { FaGithub } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
 import { toast } from "react-toastify";
 
 export default function SignupPage() {
-  const router = useRouter();
-
+  //sign up with email and password
   const handleSignUpWithEmail = async (
     e: React.SubmitEvent<HTMLFormElement>,
   ) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
-    const data = Object.fromEntries(formData.entries()) as {
+    const user = Object.fromEntries(formData.entries()) as {
       name: string;
       email: string;
       password: string;
     };
-    console.log(data);
-    const { data: resData, error } = await signUp.email({
-      name: data.name,
-      email: data.email,
-      password: data.password,
+    const { data, error } = await signUp.email({
+      ...user,
+      callbackURL: "/",
     });
-    console.log("aftersignup", resData, error);
+    console.log("aftersignup", error);
+
     if (error) {
       toast.error(
         error.message === "User already exists. Use another email."
@@ -36,24 +33,35 @@ export default function SignupPage() {
       );
       return;
     }
-    const userData = await resData.json();
+    if (data) {
+      toast.success("অ্যাকাউন্ট তৈরি সফল হয়েছে!");
+      redirect("/");
+    }
+  };
+  //signup with social
+  const handleSignUpWithSocial = async (provider: "google" | "github") => {
+    try {
+      const result = await signIn.social({
+        provider,
+        callbackURL: "/",
+      });
 
-    console.log(resData.user, "user");
-    toast.success("অ্যাকাউন্ট তৈরি সফল হয়েছে!");
-    router.push("/");
-  };
-  //signup with google
-  const handleSignUpWithGoogle = async () => {
-    const data = await signIn.social({
-      provider: "google",
-    });
-    console.log("after sign up with google", data);
-  };
-  //sign up with github
-  const handleSignUpWithGithub = async () => {
-    await signIn.social({
-      provider: "github",
-    });
+      console.log("result", result);
+
+      if (result.error) {
+        toast.error(
+          result.error.message || `${provider} দিয়ে সাইন আপ ব্যর্থ হয়েছে`,
+        );
+        return;
+      }
+
+      toast.success(
+        `${provider === "google" ? "Google" : "GitHub"} দিয়ে সাইন আপ শুরু হয়েছে`,
+      );
+    } catch (error) {
+      console.error("Social signup error:", error);
+      toast.error("সাইন আপ করতে সমস্যা হয়েছে। আবার চেষ্টা করুন।");
+    }
   };
   return (
     <main className="flex min-h-screen items-center justify-center bg-[#f0f5f0] px-4 py-8">
@@ -141,7 +149,7 @@ export default function SignupPage() {
           {/* Social Signup */}
           <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
             <button
-              onClick={handleSignUpWithGoogle}
+              onClick={() => handleSignUpWithSocial("google")}
               className="flex items-center btn btn-outline h-14 min-h-0 gap-2 border-gray-200 bg-white text-[14px] md:text-[21px] text-gray-800 transition-all duration-200 ease-in-out hover:bg-gray-100 hover:border-gray-400 hover:shadow-md hover:-translate-y-0.5  active:scale-95 active:translate-y-0"
             >
               <FcGoogle />
@@ -149,7 +157,7 @@ export default function SignupPage() {
             </button>
 
             <button
-              onClick={handleSignUpWithGithub}
+              onClick={() => handleSignUpWithSocial("github")}
               className="flex items-center btn btn-outline h-14 min-h-0 gap-2 border-gray-200 bg-white text-[14px] md:text-[21px] text-gray-800 transition-all duration-200 ease-in-out hover:bg-gray-100 hover:border-gray-400 hover:shadow-md hover:-translate-y-0.5  active:scale-95 active:translate-y-0"
             >
               <FaGithub className="text-base" />

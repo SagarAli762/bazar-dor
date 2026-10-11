@@ -1,6 +1,5 @@
 import { IProduct } from "@/types/allProducts.type";
 import Image from "next/image";
-
 const CategoryProductCard = ({ product }: { product: IProduct }) => {
   const isUp = product.change.dir === "up";
   return (

@@ -5,9 +5,6 @@ interface MarketPriceTableProps {
 }
 
 export default function MarketPriceTable({ product }: MarketPriceTableProps) {
-  const market: IMarket[] = product.markets.map((market) => market);
-  console.log(market);
-
   return (
     <section className="w-full mt-4 md:mt-8">
       <h2 className="mb-3 text-[18px] md:text-[28px] font-bold text-gray-800">

@@ -37,13 +37,13 @@ const NavbarButton = () => {
                 />
               ) : (
                 <span className="text-[12px] text-white md:text-[18px]">
-                  {user.name?.slice(0, 1)}
+                  {user?.name.slice(0, 1)}
                 </span>
               )}
             </div>
 
             <span className="max-w-[120px] truncate text-sm sm:max-w-none sm:text-base">
-              {user.name}
+              {user?.name}
             </span>
 
             <IoMdArrowDropdown className="shrink-0" />
@@ -51,10 +51,10 @@ const NavbarButton = () => {
 
           <ul
             tabIndex={-1}
-            className="dropdown-content menu z-50 mt-1 w-52 max-w-[calc(100vw-2rem)] rounded-box bg-base-100 p-2 shadow-sm sm:w-[250px]"
+            className="dropdown-content menu z-50 mt-1 w-52 md:w-72 space-y-4 p-4 rounded-box bg-base-100 p-2 shadow-sm sm:w-[250px]"
           >
-            <li className="pointer-events-none break-words ps-3 text-sm text-gray-400 md:ps-6 md:text-[20px]">
-              <span>{user.name}</span>
+            <li className="pointer-events-none break-words  text-sm text-gray-400  md:text-[20px]">
+              <span>{user?.name}</span>
             </li>
 
             <li>
@@ -62,7 +62,20 @@ const NavbarButton = () => {
                 href="/profile"
                 className="btn btn-ghost btn-sm justify-start text-sm md:text-[20px]"
               >
-                <FaUser />
+                <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-xl bg-[#07883F]">
+                  {user?.image ? (
+                    <Image
+                      src={user.image}
+                      width={40}
+                      height={40}
+                      alt="user photo"
+                    ></Image>
+                  ) : (
+                    <span className="text-white text-[26px] md:text-[36px]">
+                      {user?.name.slice(0, 1)}
+                    </span>
+                  )}
+                </div>
                 আমার প্রোফাইল
               </Link>
             </li>
@@ -81,14 +94,18 @@ const NavbarButton = () => {
         </div>
       ) : (
         <>
-          <button className="btn btn-ghost btn-sm hidden md:inline-flex">
-            <Link href="/sign-in"> সাইন ইন</Link>
-          </button>
+          <Link
+            href="/sign-in"
+            className="text-[14px] sm:text-[18px] btn btn-ghost btn-sm hidden md:inline-flex"
+          >
+            সাইন ইন
+          </Link>
 
-          <Link href="/sign-up">
-            <button className="rounded-lg bg-[#05493E] px-3 py-2 text-xs text-white transition hover:bg-[#067c14] sm:px-4 sm:text-sm">
-              সাইন আপ
-            </button>
+          <Link
+            href="/sign-up"
+            className="rounded-lg bg-[#05493E] px-3 py-2 text-[14px] sm:text-[18px] text-white transition hover:bg-[#067c14] sm:px-4 sm:text-sm"
+          >
+            সাইন আপ
           </Link>
         </>
       )}

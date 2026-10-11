@@ -81,11 +81,9 @@ const NavbarButton = () => {
         </div>
       ) : (
         <>
-          <Link href="/sign-in">
-            <button className="btn btn-ghost btn-sm hidden md:inline-flex">
-              সাইন ইন
-            </button>
-          </Link>
+          <button className="btn btn-ghost btn-sm hidden md:inline-flex">
+            <Link href="/sign-in"> সাইন ইন</Link>
+          </button>
 
           <Link href="/sign-up">
             <button className="rounded-lg bg-[#05493E] px-3 py-2 text-xs text-white transition hover:bg-[#067c14] sm:px-4 sm:text-sm">

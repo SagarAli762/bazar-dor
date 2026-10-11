@@ -1,5 +1,6 @@
 "use client";
 import { authClient } from "@/lib/auth-client";
+import Image from "next/image";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { FaUser } from "react-icons/fa";
@@ -19,7 +20,21 @@ const NavbarButton = () => {
     <>
       {user ? (
         <div className="dropdown dropdown-bottom dropdown-end ">
-          <div tabIndex={0} role="button" className="btn m-1 flex gap-10">
+          <div tabIndex={0} role="button" className="btn m-1  flex gap-10">
+            <div className="flex h-auto w-14 shrink-0 items-center justify-center rounded-xl bg-[#07883F]">
+              {user?.image ? (
+                <Image
+                  src={user.image}
+                  width={40}
+                  height={40}
+                  alt="user photo"
+                ></Image>
+              ) : (
+                <span className="text-white text-[18px] md:text-[22px]">
+                  {user?.name.slice(0, 1)}
+                </span>
+              )}
+            </div>{" "}
             {user?.name}
             <IoMdArrowDropdown />
           </div>
@@ -31,7 +46,7 @@ const NavbarButton = () => {
               {user?.name}
             </li>
             <li>
-              <Link href="/sign-in">
+              <Link href="/profile">
                 <button className="text-[14px] md:text-[20px] btn btn-ghost btn-sm hidden md:inline-flex">
                   <FaUser /> আমার প্রোফাইল
                 </button>
